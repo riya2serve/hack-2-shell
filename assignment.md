@@ -54,13 +54,57 @@ head -n 5 file.csv
 ```
 # Question 2: Clean the data 
 
-Use ```grep```, ```uniq```, and ```sed``` for this question. Check that all of the species names are spelled correctly in the file 'iris-data-dirty.csv'. Also check for missing values stored as NA. Create a new file where mispelled names are replaced with the correct values, and lines with "NA" are excluded, and save it as 'iris-data-clean.csv'. Use cut, sort and uniq to list the number of data values there are for each species in the new cleaned data file. Describe your work.
+Use ```grep```, ```uniq```, and ```sed``` for this question. Check that all of the species names are spelled correctly in the file 'iris-data-dirty.csv'. Also check for missing values stored as NA. Create a new file where mispelled names are replaced with the correct values, and lines with "NA" are excluded, and save it as 'iris-data-clean.csv'. Use ```cut```, ```sort``` and ```uniq``` to list the number of data values there are for each species in the new cleaned data file. Describe your work.
 
+The ```head``` command revealed species names within the file 'iris-data-dirty.csv' are located in the 5th column. To inspect the species name for any misspellings I used the ```cut``` command and piped it into the ```sort```and ```uniq``` commands. This allowed me to extract the species name column, sort them, and then display unique (i.e. misspelled) values. To check for missing values in the .csv file I used the ```grep``` command, which searches for user-selected expressions (e.g. NA) that you want it to search a file for. After accomplishing this, I created a new clean file. I first used the ```sed``` command to replace misspelled species names. I also removed missing values using ```grep -v```, which excludes lines with NA. This new file was saved as 'iris-data-clean.csv'. My last step was to count the number of data points for each species using the ```cut```, ```sort```, and ```uniq``` commands. 
 
-
+```
+cut -d ',' -f 5 file.csv | sort | uniq
+```
+```       
+Iris-setosa
+Iris-setsa
+Iris-versicolor
+Iris-versicolour
+Iris-virginica
+```
+```
+grep 'NA' file.csv
+```
+```
+6.3,NA,4.9,1.5,Iris-versicolor
+5.6,NA,4.1,1.3,Iris-versicolor
+```
+```
+sed 's/[Ss]etsa/setosa/g; s/[Vv]ersicolou*r/versicolor/g' file.csv | grep -v 'NA' > file.clean.csv
+```
+```
+less file.clean.csv
+(previous)...
+6.9,3.1,5.1,2.3,Iris-virginica
+5.8,2.7,5.1,1.9,Iris-virginica
+6.8,3.2,5.9,2.3,Iris-virginica
+6.7,3.3,5.7,2.5,Iris-virginica
+6.7,3.0,5.2,2.3,Iris-virginica
+6.3,2.5,5.0,1.9,Iris-virginica
+6.5,3.0,5.2,2.0,Iris-virginica
+6.2,3.4,5.4,2.3,Iris-virginica
+5.9,3.0,5.1,1.8,Iris-virginica
+```
+```
+cut -d ',' -f 5 file.clean.csv | sort | uniq -c
+```
+```
+   1 
+  50 Iris-setosa
+  48 Iris-versicolor
+  50 Iris-virginica
+ ```
 # Question 3: Find a sequence
 
 Find how many lines in the data file 'test.fastq.gz' start with "TGCAG" and end with "GAG". Describe your work.
+
+
 
 # Question 4: Find a sequence chunk 
 
