@@ -1,15 +1,23 @@
 # Question 1: Get the data files 
 
-Download the following data files from the internet using the curl command: 'http://eaton-lab.org/pdsb/test.fastq.gz'and 'http://eaton-lab.org/pdsb/iris-data-dirty.csv.' Use the 'less' or 'zless' commands to look at each file. Describe what these commands do. Finally, use the 'head' command to print the first 5 lines of the file 'iris-data-dirty.csv'.
+Download the following data files from the internet using the ```curl``` command: 'http://eaton-lab.org/pdsb/test.fastq.gz'and 'http://eaton-lab.org/pdsb/iris-data-dirty.csv.' Use the ```less``` or ```zless``` commands to look at each file. Describe what these commands do. Finally, use the ```head``` command to print the first 5 lines of the file 'iris-data-dirty.csv'.
 
-I first downloaded both data files using the curl command. 
-
+I first refreshed myself on the curl command and basic syntax for it. The ```curl``` command allows users to fetch a given URL or file from the bash shell. I used a 301-redirect file with curl to download the .fastq.gz file into a new, empty file that I named 'file.tgz.' I repeated this for the .csv file, downloading it into a new file named 'file.csv'. I then used the ```less``` command, to view both files page-by-page. This command makes it possible to view the contents of files without downloading them into the operating system's memory. As a result, I was able to speed up the file loading process for both 'file.tgz' and 'file.csv'. The ```zless``` command (not used) is slightly different in that it paginates the output. The last thing I did was to use the ```head``` command to print the first 5 lines of the iris-data-dirty.csv file. By default this command prints the first 10 lines, so to account for this, I had to ammend the command by adding the ```-n num``` argument 
 ```
 curl -L -o file.tgz http://eaton-lab.org/pdsb/test.fastq.gz
 less file.tgz
 ```
 ```
-file.tgz may be a binary file. See it anyway? Y
+ % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   162  100   162    0     0    552      0 --:--:-- --:--:-- --:--:--   552
+100  220k  100  220k    0     0   473k      0 --:--:-- --:--:-- --:--:--  473k
+```
+```
+file.tgz may be a binary file. See it anyway?
+```
+```
+Yes
 ```
 ```
 (previous)...
@@ -21,6 +29,12 @@ curl -L -o file.csv http://eaton-lab.org/pdsb/iris-data-dirty.csv
 less file.csv
 ```
 ```
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   162  100   162    0     0    964      0 --:--:-- --:--:-- --:--:--   970
+100  4549  100  4549    0     0  17117      0 --:--:-- --:--:-- --:--:-- 17117
+```
+```
 (previous)...
 6.1,2.6,5.6,1.4,Iris-virginica
 7.7,3.0,6.1,2.3,Iris-virginica
@@ -28,12 +42,21 @@ less file.csv
 6.4,3.1,5.5,1.8,Iris-virginica
 ... (continued)
 ```
+```
+head -n 5 file.csv
+```
+```
+5.1,3.5,1.4,0.2,Iris-setosa
+4.9,3.0,1.4,0.2,Iris-setosa
+4.7,3.2,1.3,0.2,Iris-setosa
+4.6,3.1,1.5,0.2,Iris-setosa
+5.0,3.6,1.4,0.2,Iris-setosa
+```
 # Question 2: Clean the data 
 
-Use grep, uniq, and sed for this question. Check that all of the species names are spelled correctly in the file 'iris-data-dirty.csv'. 
-Also check for missing values stored as NA. Create a new file where mispelled names are replaced with the correct values, 
-and lines with "NA" are excluded, and save it as 'iris-data-clean.csv'. Use cut, sort and uniq to list the number of 
-data values there are for each species in the new cleaned data file. Describe your work.
+Use ```grep```, ```uniq```, and ```sed``` for this question. Check that all of the species names are spelled correctly in the file 'iris-data-dirty.csv'. Also check for missing values stored as NA. Create a new file where mispelled names are replaced with the correct values, and lines with "NA" are excluded, and save it as 'iris-data-clean.csv'. Use cut, sort and uniq to list the number of data values there are for each species in the new cleaned data file. Describe your work.
+
+
 
 # Question 3: Find a sequence
 
