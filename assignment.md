@@ -104,11 +104,34 @@ cut -d ',' -f 5 file.clean.csv | sort | uniq -c
 
 Find how many lines in the data file 'test.fastq.gz' start with "TGCAG" and end with "GAG". Describe your work.
 
+Since I am dealing with a fastq.gz compressed file I piped the ```zgrep``` command into the ```wc``` command. The ```zgrep``` command is specifically designed to search this file type without messing up the compression. In this case, I am asking the command to search the file for strings that begin with "TGCAG" and end with "GAG". Then ```wc -l``` counts the number of lines that match this request. 
 
+```
+zgrep '^TGCAG.*GAG$' file.tgz | wc -l
+```
+```    
+44
+```
 
 # Question 4: Find a sequence chunk 
 
-Using 'grep' and other tools if necessary find all lines that contain the sequence "AAAACCCC" and 
+Using ```grep``` and other tools if necessary find all lines that contain the sequence "AAAACCCC" and 
 for each print that line, the line above it, and two lines below it (so that a 4-line chunk around each search 
 hit is printed). Describe your work.
 
+Similar to before I used the ```zgrep``` command since I am dealing with a compressed .gz file. I used it to locate all lines containing the equence "AAAACCCC". I then requested that it print the line immeidately before and the two lines after. In this case, the argument ```-B``` indicates before (each matching line in the output) and ```-A``` indicates after (each matching line in the output). 
+
+```
+zgrep -B 1 -A 2 'AAAACCCC' file.tgz
+```
+```
+@32082_przewalskii.98 GRC13_0027_FC:4:1:5669:1669 length=74
+TGCAGAATAGATAGGAAACGTTTTGGCGCTGTAGACATTAAAACCCCAGTAGGACACGGGTATCACAACGTACA
++32082_przewalskii.98 GRC13_0027_FC:4:1:5669:1669 length=74
+IIIIIIIIIIIIIIIIIIHIHIIIIIIIIGIIIGIIIIIIHIIIIIIIHIIIIHIIIIIIEHIHHIIIIICIHI
+--
+@33413_thamno.59 GRC13_0027_FC:4:1:5000:1620 length=74
+TGCAGTGGATCGAAAACCCCGAGGCTCAAGGTCACGCCACCGTCTTCGTGGCCAAGTTCTTCGGCCGCGCCGGC
++33413_thamno.59 GRC13_0027_FC:4:1:5000:1620 length=74
+IIIIIIIIIIIIIIIIIIIIDHIIHHIIIIIEIBGBGGGIIHEHHHIEBBHHIEGGDGIGGHAEFDBFBDDB?D
+```
